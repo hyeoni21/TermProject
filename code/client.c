@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 {
 	if(argc != 3)
 	{
-		printf("%s <IP><port>\n", argv[0]);
+		printf("Usage : %s <IP> <port>\n", argv[0]);
 		exit(1);
 	}
 
