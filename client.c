@@ -1,5 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/socket.h>
+#include<arpa/inet.h>
 
 int main(int argc, char **argv)
 {
@@ -9,7 +13,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	printf("Test\n");
+	printf("client\n");
 
 	return 0;
 }
