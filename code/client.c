@@ -5,6 +5,9 @@
 #include<sys/socket.h>
 #include<arpa/inet.h>
 
+
+void error_handling(char *msg);
+
 int main(int argc, char **argv)
 {
 	int sock;
@@ -35,8 +38,17 @@ int main(int argc, char **argv)
 
 		error_handling("connect() error");
 
-	
+	while(1)
+	{
+		
+	}
 	printf("client\n");
 
 	return 0;
+}
+
+void error_handling(char *msg)
+{
+	printf("%s", msg);
+	exit(1);
 }
