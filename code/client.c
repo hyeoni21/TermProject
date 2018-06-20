@@ -5,13 +5,14 @@
 #include<sys/socket.h>
 #include<arpa/inet.h>
 
+#define buffsz 9999
 
 void error_handling(char *msg);
 
 int main(int argc, char **argv)
 {
 	int sock;
-
+	char buffer[buffsz];
 	struct sockaddr_in serv_addr;
 
 	
@@ -40,7 +41,10 @@ int main(int argc, char **argv)
 
 	while(1)
 	{
-		
+		scanf("%s", &buffer);
+		write(sock, buffer, buffsz);
+		read(sock, buffer, buffsz);
+		printf("%s\n", buffer);
 	}
 	printf("client\n");
 

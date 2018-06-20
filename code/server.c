@@ -4,13 +4,19 @@
 #include<string.h>
 #include<sys/socket.h>
 #include<arpa/inet.h>
+#define buffsz 9999
 
 void error_handling(char *msg);
+void snd(int, char*, int);
+void rcv(int, char*, int);
 
 int main(int argc, char **argv)
 {
 	int serv_sock, clnt_sock;
-
+	int clnt_socks[100];
+	int channel[100];
+	char buffer[buffsz];
+	pid_t pid;
 	struct sockaddr_in serv_adr, clnt_adr;
 
 	int clnt_adr_sz;
@@ -46,12 +52,36 @@ int main(int argc, char **argv)
 		clnt_adr_sz=sizeof(clnt_adr);
 
 		clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_adr,&clnt_adr_sz);
-
 		printf("Connected client IP: %s \n", inet_ntoa(clnt_adr.sin_addr));
+
+		pid = fork();
+
+		if(pid == 0)
+		{
+			printf("%d\n", pid);
+			while(1)
+			{
+				rcv(clnt_sock, buffer, buffsz);
+				snd(clnt_sock, buffer, buffsz);
+			}
+		}
+		else
+			printf("2222");
+
+
 	}
-	printf("server\n");
 
 	return 0;
+}
+
+void snd(int sock, char *buf, int bufsz)
+{
+	write(sock, buf, buffsz);
+}
+
+void rcv(int sock, char *buf, int bufsz)
+{
+	read(sock, buf, bufsz);
 }
 
 void error_handling(char *msg)
